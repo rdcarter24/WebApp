@@ -1,6 +1,5 @@
-
 import sqlite3
-
+# This is a comment.
 DB = None
 CONN = None
 
