@@ -1,0 +1,14 @@
+<html>
+<body>
+<!-- {% if first_name == None %}
+<p>Student not in database.</p>
+{% else %} -->
+<h1>Project: {{project_list[0][3]}}</h1>
+<ul>
+{% for item in project_list %}
+<li><a href="/student?github={{item[2]}}">{{item[0]}} {{item[1]}}</a> {{item[4]}}</li>
+{% endfor %}
+</ul>
+<!-- {% endif %} -->
+</body>
+</html>

@@ -1,5 +1,5 @@
 import sqlite3
-# This is a comment.
+
 DB = None
 CONN = None
 
@@ -7,12 +7,12 @@ def get_student_by_github(github):
     query = """SELECT first_name, last_name, github FROM Students WHERE github = ?"""
     DB.execute(query, (github,))
     row = DB.fetchone()
-    if row is None:
-        print"""Student not in database."""
-        main()
-    print """\
-Student: %s %s
-Github account: %s"""%(row[0], row[1], row[2])
+
+    # NEED TO INCORPORATE ERROR
+    # if row is None:
+    #     return"""Student not in database."""
+    #     main()
+    return row
 
 def get_project_by_title(title):
     query = """SELECT title, description, max_grade FROM Projects WHERE title = ?"""
@@ -21,27 +21,28 @@ def get_project_by_title(title):
     if row is None:
         print "Project does not exist."
         main()
-    print"""\
-Project Title: %s 
-Description: %s
-Maximum Grade: %s"""%(row[0], row[1], row[2])
+    return row
+# Project Title: %s 
+# Description: %s
+# Maximum Grade: %s"""%(row[0], row[1], row[2])
 
 def get_grades_by_project(project):
     existing_query = """ SELECT title FROM Projects WHERE title = ?"""
-    DB.execute(existing_query,(title,))
+    DB.execute(existing_query,(project,))
     existing_project = DB.fetchone()
     if existing_project is None:
         print "Project does not exist in database."
         main()
-    query = """SELECT Students.first_name, Students.last_name, Grades.project_title, Grades.grade 
+    query = """SELECT Students.first_name, Students.last_name, Students.github, Grades.project_title, Grades.grade 
     FROM Grades INNER JOIN Students ON Grades.student_github = Students.github WHERE Grades.project_title = ?"""
     DB.execute(query, (project,))
     row = DB.fetchall()
-    for i in range(len(row)):
-        print"""\
-Student: %s %s
-Project: %s
-Grade: %d"""%(row[i][0], row[i][1], row[i][2], row[i][3])
+    return row
+#     for i in range(len(row)):
+#         print"""\
+# Student: %s %s
+# Project: %s
+# Grade: %d"""%(row[i][0], row[i][1], row[i][2], row[i][3])
 
 def get_student_grades(student_github):
     duplicate_query = """SELECT github FROM Students WHERE github = ?"""
@@ -54,12 +55,12 @@ def get_student_grades(student_github):
     FROM Grades INNER JOIN Students ON Grades.student_github = Students.github WHERE Grades.student_github = ?"""
     DB.execute(query, (student_github,))
     row = DB.fetchall()
-    print"""\
-Student: %s %s"""%(row[0][0], row[0][1])
-    for i in range(len(row)):
-        print"""\
-Project: %s
-Grade: %d"""%(row[i][2], row[i][3])
+    return row
+# Student: %s %s"""%(row[0][0], row[0][1])
+#     for i in range(len(row)):
+#         print"""\
+# Project: %s
+# Grade: %d"""%(row[i][2], row[i][3])
 
 def make_new_student(first_name, last_name, github):
     duplicate_query = """SELECT github FROM Students WHERE github = ?"""
@@ -73,10 +74,10 @@ def make_new_student(first_name, last_name, github):
     CONN.commit()
     print "Successfully added student: %s %s" %(first_name,last_name)
 
-def make_new_project(*args):
-    title = args[0]
-    description = args[1:-1]
-    max_grade = args[len(args)]
+def make_new_project(title, description, number):
+    # title = args[0]
+    # description = args[1:-1]
+    # max_grade = args[len(args)]
     existing_query = """ SELECT title FROM Projects WHERE title = ?"""
     DB.execute(existing_query,(title,))
     existing_project = DB.fetchone()
@@ -84,10 +85,11 @@ def make_new_project(*args):
         print "Project already exists."
         main()
     query = """INSERT into Projects values (?,?,?)"""
-    number = int(max_grade)
+    #number = int(max_grade)
     DB.execute(query,(title, description,number))
     CONN.commit()
-    print "Successfully added a project: %s %s %d" % (title,description,number)
+    #return something!!!!!!!!!!!!!! and why did we not have to return for make_new_student?????
+    #print "Successfully added a project: %s %s %d" % (title,description,number)
 
 def make_new_grade(student_github,project_title,grade):
     duplicate_query = """ SELECT grade FROM Grades WHERE github = ? AND project_title = ?"""
@@ -102,7 +104,7 @@ def make_new_grade(student_github,project_title,grade):
     number_grade = int(grade)
     DB.execute(query,(student_github,project_title,number_grade))
     CONN.commit()
-    print "Successfully added %s %s's grade for %s as %d" % (student_name[0], student_name[1],project_title,number_grade)
+    # print "Successfully added %s %s's grade for %s as %d" % (student_name[0], student_name[1],project_title,number_grade)
 
 def connect_to_db():
     global DB, CONN

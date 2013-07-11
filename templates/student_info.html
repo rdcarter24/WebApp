@@ -1,8 +1,35 @@
 <html>
 <body>
+<!-- {% if first_name == None %}
+<p>Student not in database.</p>
+{% else %} -->
 <h1>Student: {{last_name}}, {{first_name}}</h1>
 <h2>Github: {{github}}</h2>
+<ul>
+{% for item in grade_list %}
+	<li>Project: <a href="/project?project={{item[2]}}">{{item[2]}}</a> <b>Grade: {{item[3]}}</b></li>
+{% endfor %}
+</ul>
+
+
+
+
+
+
+<!-- Grades.project_title, Grades.grade
+for i in range(len(row)):
+        print"""\
+Project: %s
+Grade: %d"""%(row[i][2], row[i][3]) -->
+
+
+
+
+
+
+
 <p>This student has shown extreme recalcitrance and has generally proved to be unreliable.</p>
 <p>It is my recommendation that they be put on double-secret probation for the remainder of the course.</p>
+<!-- {% endif %} -->
 </body>
 </html>
