@@ -1,35 +1,83 @@
 <html>
+<header>
+	<style>
+		input[type=text], textarea {
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
+			-ms-transition: all 0.30s ease-in-out;
+			-o-transition: all 0.30s ease-in-out;
+			outline: none;
+			padding: 3px 0px 3px 3px;
+			margin: 5px 1px 3px 0px;
+			border: 1px solid #DDDDDD;
+		}
+		 
+		input[type=text]:focus, textarea:focus {
+		  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+		  padding: 3px 0px 3px 3px;
+		  margin: 5px 1px 3px 0px;
+		  border: 1px solid rgba(81, 203, 238, 1);
+		}
+		img{
+			margin-left:auto;
+			margin-right:auto;
+			padding: 10px;
+			margin-top: 50px;
+		}
+		a {
+			text-decoration: none;
+		}
+		a:hover{
+			text-decoration: underline;
+		}
+		.oval {
+			width: 100px;
+			height: 50px;
+			background: rgb(0, 255, 245);
+			-moz-border-radius: 100px / 50px;
+			-webkit-border-radius: 100px / 50px;
+			border-radius: 100px / 50px;
+			margin:10px;
+		}
+		.oval:hover{
+			background: rgb(0, 194, 255);
+		}
+		form{
+			padding: 20px;
+		}
+		.liloval{
+			width: 50px;
+			height: 25px;
+			background: rgba(92, 0, 255, 0.53);
+			-moz-border-radius: 100px / 50px;
+			-webkit-border-radius: 100px / 50px;
+			border-radius: 100px / 50px;
+			margin:10px;
+		}
+		.liloval:hover{
+			background: rgba(92, 0, 255, 0.82);
+		}
+	</style>
+</header>
 <body>
-<!-- {% if first_name == None %}
+{% if first_name == "You" %}
 <p>Student not in database.</p>
-{% else %} -->
+{% else %}
+	<center><a href="/"><img src="/static/img/fatunicorn.jpg" width="200"></a><br>
+	<a href="/create_new_student"><button class="oval">Create New Student</button></a>
+	<a href="/create_new_project"><button class="oval">Create New Project</button></a>
+	<a href="/enter_student_grade"><button class="oval">Enter Student Grade</button></a>
+
 <h1>Student: {{last_name}}, {{first_name}}</h1>
-<h2>Github: {{github}}</h2>
+<h2>Github: {{student_github}}</h2>
 <ul>
 {% for item in grade_list %}
 	<li>Project: <a href="/project?project={{item[2]}}">{{item[2]}}</a> <b>Grade: {{item[3]}}</b></li>
 {% endfor %}
+{% endif %}
 </ul>
-
-
-
-
-
-
-<!-- Grades.project_title, Grades.grade
-for i in range(len(row)):
-        print"""\
-Project: %s
-Grade: %d"""%(row[i][2], row[i][3]) -->
-
-
-
-
-
-
-
-<p>This student has shown extreme recalcitrance and has generally proved to be unreliable.</p>
-<p>It is my recommendation that they be put on double-secret probation for the remainder of the course.</p>
-<!-- {% endif %} -->
 </body>
+<footer>
+	<center><a href="http://www.hackbrightacademy.com/"><p>&copy; 2013 Hackbright Academy</p></a></center>
+</footer>
 </html>

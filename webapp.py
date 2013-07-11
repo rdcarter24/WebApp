@@ -11,11 +11,19 @@ def get_github():
 @app.route("/student")
 def get_student():
 	hackbright_app.connect_to_db()
-	student_github = request.args.get("github")
+	student_github = request.args.get("student_github")
+	if request.args.get("grade"):
+		project = request.args.get("project_title")
+		grade = request.args.get("grade")
+		enter_grade = hackbright_app.make_new_grade(student_github, project, grade)
 	row = hackbright_app.get_student_by_github(student_github)
 	grades = hackbright_app.get_student_grades(student_github)
-	html = render_template("student_info.html", first_name=row[0], last_name=row[1], 
-												github=row[2], grade_list=grades)
+	if row is None:
+		html = render_template("student_info.html", first_name="You", last_name="Boo", 
+												student_github="No", grade_list=[])	
+	else:
+		html = render_template("student_info.html", first_name=row[0], last_name=row[1], 
+												student_github=row[2], grade_list=grades)
 	return html
 
 
@@ -48,7 +56,6 @@ def new_student():
 	return html
 
 
-
 @app.route("/create_new_project")
 def create_new_project():
 	return render_template("create_new_project.html")
@@ -57,20 +64,21 @@ def create_new_project():
 @app.route("/new_project")
 def new_project():
 	hackbright_app.connect_to_db()
+	# all args need to be sent together
 	title = request.args.get("title")
 	description = request.args.get("description")
-	number = request.args.get("number")
-	create = hackbright_app.make_new_project(title, description, number)
+	grade = request.args.get("number")
+	create = hackbright_app.make_new_project(title, description, grade)
 	row = hackbright_app.get_project_by_title(title)
 	html = render_template("new_project.html", title=row[0], description=row[1], 
-												number=row[2])
+												max_grade=row[2])
 
 	return html
 
 
-
-
-
+@app.route("/enter_student_grade")
+def create_student_grade():
+	return render_template("enter_student_grade.html")
 
 
 if __name__ == "__main__":

@@ -60,13 +60,19 @@
 	</style>
 </header>
 <body>
-<center><a href="/"><img src="/static/img/fatunicorn.jpg" width="200"></a><br>
+
+	<center><a href="/"><img src="/static/img/fatunicorn.jpg" width="200"></a><br>
 	<a href="/create_new_student"><button class="oval">Create New Student</button></a>
 	<a href="/create_new_project"><button class="oval">Create New Project</button></a>
 	<a href="/enter_student_grade"><button class="oval">Enter Student Grade</button></a>
-<p>Success!</p>
-<h1>Student: {{last_name}}, {{first_name}}</h1>
-<h2>Github: {{github}}</h2></center>
+	<form action="/student">
+
+		<input type="text" name="student_github" placeholder="Github"/>
+		<input type="text" name="project_title" placeholder="Title"/>
+		<input type="text" name="grade" placeholder="Grade"/>
+
+		<input class="liloval" type="submit" value="Enter"/>
+	</form></center>
 </body>
 <footer>
 	<center><a href="http://www.hackbrightacademy.com/"><p>&copy; 2013 Hackbright Academy</p></a></center>

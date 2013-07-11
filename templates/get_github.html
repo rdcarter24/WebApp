@@ -1,13 +1,76 @@
 <html>
+<header>
+	<style>
+		input[type=text], textarea {
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
+			-ms-transition: all 0.30s ease-in-out;
+			-o-transition: all 0.30s ease-in-out;
+			outline: none;
+			padding: 3px 0px 3px 3px;
+			margin: 5px 1px 3px 0px;
+			border: 1px solid #DDDDDD;
+		}
+		 
+		input[type=text]:focus, textarea:focus {
+		  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+		  padding: 3px 0px 3px 3px;
+		  margin: 5px 1px 3px 0px;
+		  border: 1px solid rgba(81, 203, 238, 1);
+		}
+		img{
+			margin-left:auto;
+			margin-right:auto;
+			padding: 10px;
+			margin-top: 50px;
+		}
+		a {
+			text-decoration: none;
+		}
+		a:hover{
+			text-decoration: underline;
+		}
+		.oval {
+			width: 100px;
+			height: 50px;
+			background: rgb(0, 255, 245);
+			-moz-border-radius: 100px / 50px;
+			-webkit-border-radius: 100px / 50px;
+			border-radius: 100px / 50px;
+			margin:10px;
+		}
+		.oval:hover{
+			background: rgb(0, 194, 255);
+		}
+		form{
+			padding: 20px;
+		}
+		.liloval{
+			width: 50px;
+			height: 25px;
+			background: rgba(92, 0, 255, 0.53);
+			-moz-border-radius: 100px / 50px;
+			-webkit-border-radius: 100px / 50px;
+			border-radius: 100px / 50px;
+			margin:10px;
+		}
+		.liloval:hover{
+			background: rgba(92, 0, 255, 0.82);
+		}
+	</style>
+</header>
 <body>
+	<center><a href="/"><img src="/static/img/fatunicorn.jpg" width="200"></a><br>
+	<a href="/create_new_student"><button class="oval">Create New Student</button></a>
+	<a href="/create_new_project"><button class="oval">Create New Project</button></a>
+	<a href="/enter_student_grade"><button class="oval">Enter Student Grade</button></a>
+
 	<form action="/student">
-		<label for="github">Enter github id</label>
-		<input type="text" name="github" placeholder="Enter Github ID"/>
-		<input type="submit" value="ROCKSTAR"/>
-	</form>
-	<a href="/create_new_student">Create New Student</a>
-
-
-	<a href="/create_new_project">Create New Project</a>
+		<input type="text" name="student_github" placeholder="Enter Github ID"/>
+		<input class="liloval" type="submit" value="Enter"/>
+	</form></center>
 </body>
+<footer>
+	<center><a href="http://www.hackbrightacademy.com/"><p>&copy; 2013 Hackbright Academy</p></a></center>
+</footer>
 </html>

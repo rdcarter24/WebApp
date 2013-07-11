@@ -3,15 +3,13 @@ import sqlite3
 DB = None
 CONN = None
 
-def get_student_by_github(github):
+def get_student_by_github(student_github):
     query = """SELECT first_name, last_name, github FROM Students WHERE github = ?"""
-    DB.execute(query, (github,))
+    DB.execute(query, (student_github,))
     row = DB.fetchone()
-
-    # NEED TO INCORPORATE ERROR
     # if row is None:
     #     return"""Student not in database."""
-    #     main()
+    #     # main()
     return row
 
 def get_project_by_title(title):
@@ -45,12 +43,12 @@ def get_grades_by_project(project):
 # Grade: %d"""%(row[i][0], row[i][1], row[i][2], row[i][3])
 
 def get_student_grades(student_github):
-    duplicate_query = """SELECT github FROM Students WHERE github = ?"""
-    DB.execute(duplicate_query, (student_github,))
-    duplicate_row = DB.fetchone()
-    if duplicate_row is None:
-        print"""Github account is not in database."""
-        main()
+    # duplicate_query = """SELECT github FROM Students WHERE github = ?"""
+    # DB.execute(duplicate_query, (student_github,))
+    # duplicate_row = DB.fetchone()
+    # if duplicate_row is None:
+    #     print"""Github account is not in database."""
+    #     main()
     query = """SELECT Students.first_name, Students.last_name, Grades.project_title, Grades.grade
     FROM Grades INNER JOIN Students ON Grades.student_github = Students.github WHERE Grades.student_github = ?"""
     DB.execute(query, (student_github,))
@@ -72,7 +70,7 @@ def make_new_student(first_name, last_name, github):
     query = """INSERT into Students values (?,?,?)"""
     DB.execute(query, (first_name, last_name, github))
     CONN.commit()
-    print "Successfully added student: %s %s" %(first_name,last_name)
+    # print "Successfully added student: %s %s" %(first_name,last_name)
 
 def make_new_project(title, description, number):
     # title = args[0]
@@ -86,17 +84,17 @@ def make_new_project(title, description, number):
         main()
     query = """INSERT into Projects values (?,?,?)"""
     #number = int(max_grade)
-    DB.execute(query,(title, description,number))
+    DB.execute(query,(title, description, number))
     CONN.commit()
     #return something!!!!!!!!!!!!!! and why did we not have to return for make_new_student?????
     #print "Successfully added a project: %s %s %d" % (title,description,number)
 
 def make_new_grade(student_github,project_title,grade):
-    duplicate_query = """ SELECT grade FROM Grades WHERE github = ? AND project_title = ?"""
-    DB.execute(duplicate_query, (student_github, project_title))
-    if student_github and project_title != None:
-        print 'Student has been assigned a grade for this project.'
-        main()
+    # duplicate_query = """ SELECT grade FROM Grades WHERE github = ? AND project_title = ?"""
+    # DB.execute(duplicate_query, (student_github, project_title))
+    # if student_github and project_title != None:
+    #     print 'Student has been assigned a grade for this project.'
+    #     main()
     name_query = """SELECT Students.first_name,Students.last_name FROM Students WHERE github = ?"""
     DB.execute(name_query,(student_github,))
     student_name = DB.fetchone()
